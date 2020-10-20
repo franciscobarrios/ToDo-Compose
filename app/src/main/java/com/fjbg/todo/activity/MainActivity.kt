@@ -7,7 +7,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.setContent
-import androidx.ui.tooling.preview.Preview
+import com.fjbg.todo.R
+import com.fjbg.todo.ui.Greeting
 import com.fjbg.todo.ui.ToDoTheme
 
 class MainActivity : AppCompatActivity() {
@@ -16,22 +17,10 @@ class MainActivity : AppCompatActivity() {
         setContent {
             ToDoTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                    Greeting(resources.getString(R.string.app_name))
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ToDoTheme {
-        Greeting("Android")
-    }
-}
