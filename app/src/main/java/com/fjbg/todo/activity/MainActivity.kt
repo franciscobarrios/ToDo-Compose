@@ -3,8 +3,8 @@ package com.fjbg.todo.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -14,6 +14,9 @@ import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.ripple.RippleIndication
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,13 +31,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ToDoTheme {
-                LazyColumn(this, fakeData())
-                FloatingActionButton(
-                    onClick = {
-                        startActivity(Intent(this, NewTaskActivity::class.java))
+                Scaffold(
+                    bodyContent = {
+                        LazyColumn(this, fakeData())
+                    },
+                    floatingActionButton = {
+                        FloatingActionButton(
+                            onClick = {
+                                startActivity(Intent(this, NewTaskActivity::class.java))
+                            }
+                        ) {
+                            Icon(asset = Icons.Default.Add)
+                        }
                     }
-                ) {
-                }
+                )
             }
         }
     }
@@ -72,7 +82,9 @@ fun createTaskCard(context: Context, task: Task) {
             .fillMaxWidth()
             .padding(8.dp)
             .clickable(onClick = {
-                Toast.makeText(context, "task Id: ${task.taskId}", Toast.LENGTH_LONG).show()
+                val i = Intent(context, DetailTaskActivity::class.java)
+                i.putExtra("taskId", task.taskId)
+                context.startActivity(i)
             })
     ) {
         Column {
@@ -121,14 +133,6 @@ fun taskStatus(status: Boolean) {
         style = textStyleStatus,
         modifier = cardStatusModifier
     )
-}
-
-fun textTaskStatus(status: Boolean): String {
-    return if (status) {
-        "Completed"
-    } else {
-        "Uncompleted"
-    }
 }
 
 fun fakeData(): ArrayList<Task> {

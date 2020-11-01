@@ -1,6 +1,5 @@
 package com.fjbg.todo.ui
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -25,6 +24,13 @@ val textStyleContent = TextStyle(
 val textStyleStatus = TextStyle(
     fontFamily = FontFamily.Monospace,
     fontSize = 12.sp,
+    color = grey,
+    textAlign = TextAlign.End
+)
+
+val textStyleSmall = TextStyle(
+    fontFamily = FontFamily.Monospace,
+    fontSize = 10.sp,
     color = grey,
     textAlign = TextAlign.End
 )
