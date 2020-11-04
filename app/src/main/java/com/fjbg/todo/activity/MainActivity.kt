@@ -3,6 +3,8 @@ package com.fjbg.todo.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
@@ -25,8 +27,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.fjbg.todo.data.Task
 import com.fjbg.todo.ui.*
+import com.fjbg.todo.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -47,6 +53,12 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
+
+        viewModel.observeTaskList().observe(this, { list ->
+            if (list.isNotEmpty()) {
+                Log.d("MainActivity", "observeTaskList: $list")
+            }
+        })
     }
 }
 
@@ -67,7 +79,6 @@ fun LazyColumn(context: Context, tasks: List<Task>) {
         )
     }
 }
-
 
 @Composable
 fun createTaskCard(context: Context, task: Task) {
