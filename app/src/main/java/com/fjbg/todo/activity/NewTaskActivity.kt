@@ -1,6 +1,8 @@
 package com.fjbg.todo.activity
 
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -14,8 +16,13 @@ import com.fjbg.todo.data.Task
 import com.fjbg.todo.ui.ToDoTheme
 import com.fjbg.todo.ui.saveButton
 import com.fjbg.todo.ui.tfTaskTitle
+import com.fjbg.todo.viewmodel.TaskViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewTaskActivity : AppCompatActivity() {
+
+    val viewModel: TaskViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,11 +31,26 @@ class NewTaskActivity : AppCompatActivity() {
                 Scaffold(
                     bodyContent = {
                         form(null)
+
                     }
                 )
             }
         }
+
+        viewModel.saveTask(
+            Task(
+                taskId = 0,
+                taskTitle = "this is the title",
+                taskContent = "sdfjkshkdjfhjskdkjfshkd",
+                taskCompleted = true
+            )
+        )
+
+        viewModel.observeSaveTask().observe(this, {
+            Log.d(">>>>>>>>>>>", "observeSaveTask: $it")
+        })
     }
+
 
     override fun onBackPressed() {
         super.onBackPressed()

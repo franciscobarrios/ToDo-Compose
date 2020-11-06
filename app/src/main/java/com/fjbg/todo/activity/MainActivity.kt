@@ -25,13 +25,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.LifecycleOwner
 import com.fjbg.todo.data.Task
 import com.fjbg.todo.ui.*
-import com.fjbg.todo.viewmodel.MainViewModel
+import com.fjbg.todo.viewmodel.TaskViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+    val taskViewModel: TaskViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             ToDoTheme {
                 Scaffold(
                     bodyContent = {
-                        LazyColumn(this, fakeData())
+                        LazyColumn(this, taskViewModel, this)
                     },
                     floatingActionButton = {
                         FloatingActionButton(
@@ -54,18 +58,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.observeTaskList().observe(this, { list ->
-            if (list.isNotEmpty()) {
-                Log.d("MainActivity", "observeTaskList: $list")
-            }
+        taskViewModel.observeTaskList().observe(this, { list ->
+            Log.d(">>>>>>>>>>>", "observeTaskList: $list")
         })
     }
 }
 
 @Composable
-fun LazyColumn(context: Context, tasks: List<Task>) {
+fun LazyColumn(
+    context: Context,
+    taskViewModel: TaskViewModel = viewModel(),
+    owner: LifecycleOwner
+) {
+    taskViewModel.observeTaskList().observe(owner, { list ->
+        Log.d(">>>>>>>>>>>", "observeTaskList: $list")
+    })
+
     LazyColumnFor(
-        items = tasks,
+        items = fakeData(),
         modifier = Modifier.padding(
             start = 8.dp,
             top = 12.dp,
