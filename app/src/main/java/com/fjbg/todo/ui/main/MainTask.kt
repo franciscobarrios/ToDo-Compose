@@ -54,7 +54,7 @@ fun LazyColumn(
     val list = viewModel.taskListLiveData.value as ArrayList<Task>?
 
     LazyColumnFor(
-        items = list,
+        items = fakeData(),
         modifier = Modifier.padding(
             start = 8.dp,
             top = 12.dp,
