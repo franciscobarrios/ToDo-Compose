@@ -1,4 +1,4 @@
-package com.fjbg.todo.activity
+package com.fjbg.todo.ui.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
-import com.fjbg.todo.data.Task
+import com.fjbg.todo.model.Task
 import com.fjbg.todo.ui.*
+import com.fjbg.todo.ui.theme.ToDoTheme
+import com.fjbg.todo.ui.theme.textStyleContent
+import com.fjbg.todo.ui.theme.textStyleStatus
+import com.fjbg.todo.ui.theme.textStyleTitle
 
 class DetailTaskActivity : AppCompatActivity() {
 

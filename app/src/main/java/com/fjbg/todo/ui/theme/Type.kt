@@ -1,4 +1,4 @@
-package com.fjbg.todo.ui
+package com.fjbg.todo.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,11 +1,7 @@
-package com.fjbg.todo.activity
+package com.fjbg.todo.ui.main
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
@@ -22,60 +18,43 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.ripple.RippleIndication
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
-import androidx.lifecycle.LifecycleOwner
-import com.fjbg.todo.data.Task
-import com.fjbg.todo.ui.*
-import com.fjbg.todo.viewmodel.TaskViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import com.fjbg.todo.model.Task
+import com.fjbg.todo.ui.detail.DetailTaskActivity
+import com.fjbg.todo.ui.newtask.NewTaskActivity
+import com.fjbg.todo.ui.textTaskStatus
+import com.fjbg.todo.ui.theme.*
 
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
 
-    val taskViewModel: TaskViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            ToDoTheme {
-                Scaffold(
-                    bodyContent = {
-                        LazyColumn(this, taskViewModel, this)
-                    },
-                    floatingActionButton = {
-                        FloatingActionButton(
-                            onClick = {
-                                startActivity(Intent(this, NewTaskActivity::class.java))
-                            }
-                        ) {
-                            Icon(asset = Icons.Default.Add)
-                        }
-                    }
-                )
+@Composable
+fun MainTask(context: Context, viewModel: MainViewModel) {
+    Scaffold(
+        bodyContent = {
+            LazyColumn(context, viewModel)
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    context.startActivity(Intent(context, NewTaskActivity::class.java))
+                }
+            ) {
+                Icon(asset = Icons.Default.Add)
             }
         }
-
-        taskViewModel.observeTaskList().observe(this, { list ->
-            Log.d(">>>>>>>>>>>", "observeTaskList: $list")
-        })
-    }
+    )
 }
 
 @Composable
 fun LazyColumn(
     context: Context,
-    taskViewModel: TaskViewModel = viewModel(),
-    owner: LifecycleOwner
+    viewModel: MainViewModel
 ) {
-    taskViewModel.observeTaskList().observe(owner, { list ->
-        Log.d(">>>>>>>>>>>", "observeTaskList: $list")
-    })
+
+    val list = viewModel.taskListLiveData.value as ArrayList<Task>?
 
     LazyColumnFor(
-        items = fakeData(),
+        items = list,
         modifier = Modifier.padding(
             start = 8.dp,
             top = 12.dp,

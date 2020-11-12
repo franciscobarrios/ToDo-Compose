@@ -1,4 +1,4 @@
-package com.fjbg.todo.ui
+package com.fjbg.todo.ui.theme
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
@@ -7,6 +7,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.fjbg.todo.ui.theme.darkGrey
+import com.fjbg.todo.ui.theme.grey
 
 val textStyleTitle = TextStyle(
     fontFamily = FontFamily.Monospace,

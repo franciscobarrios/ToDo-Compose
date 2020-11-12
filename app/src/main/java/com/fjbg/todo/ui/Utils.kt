@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 
+const val TAG = ">>>>>>>>>>>>>>>>>>>"
+
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
@@ -34,10 +36,6 @@ fun tfTaskTitle(placeHolder: String) {
         }
     )
     Spacer(modifier = Modifier.padding(12.dp))
-    /*Text(
-        text = "Task title: " + textState.component1(),
-        style = textStyleSmall
-    )*/
 }
 
 @Composable

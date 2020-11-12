@@ -1,4 +1,4 @@
-package com.fjbg.todo.activity
+package com.fjbg.todo.ui.newtask
 
 import android.os.Bundle
 import android.util.Log
@@ -12,17 +12,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
-import com.fjbg.todo.data.Task
-import com.fjbg.todo.ui.ToDoTheme
+import com.fjbg.todo.model.Task
+import com.fjbg.todo.ui.TAG
 import com.fjbg.todo.ui.saveButton
 import com.fjbg.todo.ui.tfTaskTitle
-import com.fjbg.todo.viewmodel.TaskViewModel
+import com.fjbg.todo.ui.theme.ToDoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NewTaskActivity : AppCompatActivity() {
 
-    val viewModel: TaskViewModel by viewModels()
+    val viewModel: NewTaskViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,18 +37,10 @@ class NewTaskActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.saveTask(
-            Task(
-                taskId = 0,
-                taskTitle = "this is the title",
-                taskContent = "sdfjkshkdjfhjskdkjfshkd",
-                taskCompleted = true
-            )
-        )
-
         viewModel.observeSaveTask().observe(this, {
-            Log.d(">>>>>>>>>>>", "observeSaveTask: $it")
+
         })
+
     }
 
 
@@ -70,6 +62,7 @@ fun form(task: Task?) {
                 text = "Save",
                 onCLick = {
                     task?.let {
+                        Log.d(TAG, "task: $it")
                         saveTask(task = it)
                     }
                 }

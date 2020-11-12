@@ -1,4 +1,4 @@
-package com.fjbg.todo.viewmodel
+package com.fjbg.todo.ui.detail
 
 import androidx.lifecycle.ViewModel
 

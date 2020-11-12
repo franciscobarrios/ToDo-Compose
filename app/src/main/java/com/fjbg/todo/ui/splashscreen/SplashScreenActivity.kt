@@ -1,4 +1,4 @@
-package com.fjbg.todo.activity
+package com.fjbg.todo.ui.splashscreen
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.ui.platform.setContent
 import com.fjbg.todo.R
 import com.fjbg.todo.ui.Greeting
+import com.fjbg.todo.ui.main.MainActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.fjbg.todo.ui
+package com.fjbg.todo.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

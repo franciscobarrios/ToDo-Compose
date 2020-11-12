@@ -1,4 +1,4 @@
-package com.fjbg.todo.data
+package com.fjbg.todo.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
