@@ -25,7 +25,7 @@ class TaskRepository @Inject constructor(
         db.taskDao().deleteTask(taskId)
     }
 
-    override suspend fun updateTask(task: Task){
-        return  db.taskDao().updateTask(task)
+    override suspend fun updateTask(task: Task) {
+        return db.taskDao().updateTask(task)
     }
 }

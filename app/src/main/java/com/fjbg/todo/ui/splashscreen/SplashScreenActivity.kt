@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Scaffold
 import androidx.compose.ui.platform.setContent
 import com.fjbg.todo.R
-import com.fjbg.todo.ui.Greeting
 import com.fjbg.todo.ui.main.MainActivity
+import com.fjbg.todo.ui.splashScreenText
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ class SplashScreenActivity : AppCompatActivity() {
             Scaffold(
                 topBar = {},
                 bodyContent = {
-                    Greeting(resources.getString(R.string.app_name))
+                    splashScreenText(resources.getString(R.string.app_name))
                 })
         }
         GlobalScope.launch {

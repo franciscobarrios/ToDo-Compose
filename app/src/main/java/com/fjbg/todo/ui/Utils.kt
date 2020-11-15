@@ -1,10 +1,12 @@
 package com.fjbg.todo.ui
 
-import androidx.compose.foundation.Text
+
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -16,18 +18,19 @@ import androidx.compose.ui.unit.dp
 const val TAG = ">>>>>>>>>>>>>>>>>>>"
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun splashScreenText(appName: String) {
+    Box(modifier = Modifier.padding(4.dp)) {
+        Text(text = appName)
+    }
 }
 
+
 @Composable
-fun tfTaskTitle(placeHolder: String) {
+fun tfTaskTitle(placeHolder: String): String {
     val textState = remember { mutableStateOf(TextFieldValue()) }
     TextField(
         value = textState.value,
-        onValueChange = {
-            textState.value = it
-        },
+        onValueChange = { textState.value = it },
         placeholder = {
             Text(
                 text = placeHolder,
@@ -36,6 +39,7 @@ fun tfTaskTitle(placeHolder: String) {
         }
     )
     Spacer(modifier = Modifier.padding(12.dp))
+    return textState.value.text
 }
 
 @Composable

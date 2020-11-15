@@ -1,6 +1,5 @@
 package com.fjbg.todo.ui.main
 
-import androidx.annotation.WorkerThread
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +14,7 @@ class MainViewModel @ViewModelInject constructor(
     private val repository: TaskRepository
 ) : ViewModel() {
 
-    val taskListLiveData = MutableLiveData<List<Task>>()
+    private val taskListLiveData = MutableLiveData<List<Task>>()
     fun observeTaskList(): LiveData<List<Task>> {
         return taskListLiveData
     }
@@ -24,8 +23,7 @@ class MainViewModel @ViewModelInject constructor(
         getTasks()
     }
 
-    @WorkerThread
-    fun getTasks(){
+    private fun getTasks() {
         viewModelScope.launch(Dispatchers.IO) {
             taskListLiveData.postValue(repository.getTasks())
         }

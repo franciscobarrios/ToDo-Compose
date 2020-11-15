@@ -2,17 +2,12 @@ package com.fjbg.todo.ui.main
 
 import android.content.Context
 import android.content.Intent
-import androidx.compose.foundation.Icon
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumnFor
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Scaffold
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.ripple.RippleIndication
@@ -28,10 +23,13 @@ import com.fjbg.todo.ui.theme.*
 
 
 @Composable
-fun MainTask(context: Context, viewModel: MainViewModel) {
+fun MainTask(context: Context, list: List<Task>) {
     Scaffold(
         bodyContent = {
-            LazyColumn(context, viewModel)
+            LazyColumn(
+                context = context,
+                list = list
+            )
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -48,13 +46,10 @@ fun MainTask(context: Context, viewModel: MainViewModel) {
 @Composable
 fun LazyColumn(
     context: Context,
-    viewModel: MainViewModel
+    list: List<Task>
 ) {
-
-    val list = viewModel.taskListLiveData.value as ArrayList<Task>?
-
     LazyColumnFor(
-        items = fakeData(),
+        items = list,
         modifier = Modifier.padding(
             start = 8.dp,
             top = 12.dp,
@@ -67,6 +62,11 @@ fun LazyColumn(
             task = item
         )
     }
+}
+
+@Composable
+fun emptyList() {
+    //TODO: add empty list view
 }
 
 @Composable
@@ -133,38 +133,4 @@ fun taskStatus(status: Boolean) {
         style = textStyleStatus,
         modifier = cardStatusModifier
     )
-}
-
-fun fakeData(): ArrayList<Task> {
-    val task = Task(
-        taskId = 0,
-        taskTitle = "This is a task",
-        taskContent = "this is the content of the task, this is the content of the task, this is the content of the task, this is the content of the task, this is the content of the task",
-        taskCompleted = false
-    )
-
-    val list = ArrayList<Task>()
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    list.add(task)
-    return list
 }

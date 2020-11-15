@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.fjbg.todo.data.TaskDao
 import com.fjbg.todo.data.TaskDatabase
+import com.fjbg.todo.repository.TaskRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,9 +12,10 @@ import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 
+
 @InstallIn(ApplicationComponent::class)
 @Module
-object TaskDatabaseModule {
+object DatabaseModule {
 
     @Singleton
     @Provides
@@ -28,5 +30,17 @@ object TaskDatabaseModule {
     @Provides
     fun provideTaskDao(taskDatabase: TaskDatabase): TaskDao {
         return taskDatabase.taskDao()
+    }
+}
+
+
+@InstallIn(ApplicationComponent::class)
+@Module
+object RepositoryModule {
+
+    @Singleton
+    @Provides
+    fun provideRepository(database: TaskDatabase): TaskRepository {
+        return TaskRepository(database)
     }
 }
