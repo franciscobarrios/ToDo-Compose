@@ -1,12 +1,12 @@
 package com.fjbg.todo.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.setContent
-import com.fjbg.todo.ui.TAG
+import com.fjbg.todo.model.Task
 import com.fjbg.todo.ui.theme.ToDoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
             ToDoTheme {
                 viewModel.observeTaskList().observeAsState().value.let { list ->
                     if (list != null) {
-                        Log.d(TAG, "list: $list")
                         MainTask(
                             context = this,
                             list = list

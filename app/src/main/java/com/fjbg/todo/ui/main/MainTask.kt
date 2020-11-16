@@ -3,6 +3,7 @@ package com.fjbg.todo.ui.main
 import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.ripple.RippleIndication
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -48,25 +50,34 @@ fun LazyColumn(
     context: Context,
     list: List<Task>
 ) {
-    LazyColumnFor(
-        items = list,
-        modifier = Modifier.padding(
-            start = 8.dp,
-            top = 12.dp,
-            end = 8.dp,
-            bottom = 12.dp
-        )
-    ) { item ->
-        createTaskCard(
-            context = context,
-            task = item
-        )
+    if (list.isEmpty()) {
+        emptyList()
+    } else {
+        LazyColumnFor(
+            items = list,
+            modifier = Modifier.padding(
+                start = 8.dp,
+                top = 12.dp,
+                end = 8.dp,
+                bottom = 12.dp
+            )
+        ) { item ->
+            createTaskCard(
+                context = context,
+                task = item
+            )
+        }
     }
 }
 
 @Composable
 fun emptyList() {
-    //TODO: add empty list view
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = "No task to show",
+            modifier = Modifier.align(Alignment.Center)
+        )
+    }
 }
 
 @Composable
