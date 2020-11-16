@@ -3,6 +3,7 @@ package com.fjbg.todo.ui.newtask
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.setContent
 import com.fjbg.todo.ui.theme.ToDoTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +20,7 @@ class NewTaskActivity : AppCompatActivity() {
                 NewTask(viewModel = viewModel)
             }
         }
+
     }
 
     override fun onBackPressed() {

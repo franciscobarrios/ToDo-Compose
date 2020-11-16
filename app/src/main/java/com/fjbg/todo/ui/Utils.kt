@@ -21,7 +21,10 @@ const val TAG = ">>>>>>>>>>>>>>>>>>>"
 @Composable
 fun splashScreenText(appName: String) {
     Box(Modifier.fillMaxSize()) {
-        Text(text = appName, modifier = Modifier.align(Alignment.Center))
+        Text(
+            text = appName,
+            modifier = Modifier.align(Alignment.Center)
+        )
     }
 }
 

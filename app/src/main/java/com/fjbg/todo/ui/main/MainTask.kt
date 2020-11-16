@@ -3,10 +3,7 @@ package com.fjbg.todo.ui.main
 import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -23,15 +20,18 @@ import com.fjbg.todo.ui.newtask.NewTaskActivity
 import com.fjbg.todo.ui.textTaskStatus
 import com.fjbg.todo.ui.theme.*
 
-
 @Composable
 fun MainTask(context: Context, list: List<Task>) {
     Scaffold(
         bodyContent = {
-            LazyColumn(
-                context = context,
-                list = list
-            )
+            if (list.isEmpty()) {
+                emptyList()
+            } else {
+                LazyColumn(
+                    context = context,
+                    list = list
+                )
+            }
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -50,29 +50,25 @@ fun LazyColumn(
     context: Context,
     list: List<Task>
 ) {
-    if (list.isEmpty()) {
-        emptyList()
-    } else {
-        LazyColumnFor(
-            items = list,
-            modifier = Modifier.padding(
-                start = 8.dp,
-                top = 12.dp,
-                end = 8.dp,
-                bottom = 12.dp
-            )
-        ) { item ->
-            createTaskCard(
-                context = context,
-                task = item
-            )
-        }
+    LazyColumnFor(
+        items = list,
+        modifier = Modifier.padding(
+            start = 8.dp,
+            top = 12.dp,
+            end = 8.dp,
+            bottom = 12.dp
+        )
+    ) { item ->
+        createTaskCard(
+            context = context,
+            task = item
+        )
     }
 }
 
 @Composable
 fun emptyList() {
-    Box(modifier = Modifier.fillMaxWidth()) {
+    Box(modifier = Modifier.fillMaxSize()) {
         Text(
             text = "No task to show",
             modifier = Modifier.align(Alignment.Center)

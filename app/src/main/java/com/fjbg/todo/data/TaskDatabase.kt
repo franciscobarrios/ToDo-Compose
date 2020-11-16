@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.fjbg.todo.model.Task
 
-@Database(version = 2, entities = [Task::class], exportSchema = false)
+@Database(version = 3, entities = [Task::class], exportSchema = true)
 abstract class TaskDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
 }
