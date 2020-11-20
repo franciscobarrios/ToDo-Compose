@@ -21,7 +21,7 @@ class DetailTaskViewModel @ViewModelInject constructor(
 
     fun getTaskDetail(taskId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            taskListLiveData.postValue(repository.getTaskById(taskId).value)
+            taskListLiveData.postValue(repository.getTaskById(taskId))
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.fjbg.todo.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.fjbg.todo.model.Task
 
@@ -11,7 +10,7 @@ interface TaskDao {
     fun getAll(): List<Task>
 
     @Query("select * from task where taskId = :taskId")
-    fun getTaskById(taskId: Int): LiveData<Task>
+    fun getTaskById(taskId: Int): Task
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addTask(task: Task)

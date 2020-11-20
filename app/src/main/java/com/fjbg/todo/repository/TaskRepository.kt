@@ -13,7 +13,7 @@ class TaskRepository @Inject constructor(
         return db.taskDao().getAll()
     }
 
-    override suspend fun getTaskById(taskId: Int): LiveData<Task> {
+    override suspend fun getTaskById(taskId: Int): Task {
         return db.taskDao().getTaskById(taskId)
     }
 

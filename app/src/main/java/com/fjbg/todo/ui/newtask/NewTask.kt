@@ -27,9 +27,8 @@ fun NewTask(viewModel: NewTaskViewModel) {
 fun form(viewModel: NewTaskViewModel) {
 
     viewModel.observeSaveTask().observeAsState().value.let {
-
     }
-    
+
     Surface {
         Column(
             modifier = Modifier.padding(16.dp)

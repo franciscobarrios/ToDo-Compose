@@ -90,7 +90,7 @@ fun createTaskCard(context: Context, task: Task) {
             .padding(8.dp)
             .clickable(onClick = {
                 val i = Intent(context, DetailTaskActivity::class.java)
-                i.putExtra("taskId", task.taskId)
+                i.putExtra(task_id, task.taskId)
                 context.startActivity(i)
             })
     ) {
@@ -141,3 +141,5 @@ fun taskStatus(status: Boolean) {
         modifier = cardStatusModifier
     )
 }
+
+const val task_id = "task_id"
