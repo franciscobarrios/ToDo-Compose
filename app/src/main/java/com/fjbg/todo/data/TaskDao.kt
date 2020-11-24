@@ -1,6 +1,7 @@
 package com.fjbg.todo.data
 
 import androidx.room.*
+import com.fjbg.todo.model.Task
 
 @Dao
 interface TaskDao {
@@ -18,5 +19,5 @@ interface TaskDao {
     fun updateTask(task: Task)
 
     @Query("delete from task where taskId = :taskId")
-    fun deleteTaskById(taskId: Int)
+    fun deleteTask(taskId: Int)
 }
