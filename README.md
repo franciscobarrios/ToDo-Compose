@@ -5,4 +5,4 @@ Yet Another To Do app, this time with Jetpack Compose
 * Room
 * MVVM
 * Hilt
-* Coroutine 
+* Coroutine
