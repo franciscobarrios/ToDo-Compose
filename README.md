@@ -6,3 +6,4 @@ Yet Another To Do app, this time with Jetpack Compose
 * MVVM
 * Hilt
 * Coroutine
+* Navigation (In progress)
