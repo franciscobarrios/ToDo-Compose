@@ -7,6 +7,7 @@ import com.fjbg.todo.navigation.Destinations.Home
 import com.fjbg.todo.navigation.Destinations.TaskDetail
 
 object Destinations {
+    const val SplashScreen = "home"
     const val Home = "home"
     const val AddNewTask = "addProject"
     const val TaskDetail = "taskDetail"

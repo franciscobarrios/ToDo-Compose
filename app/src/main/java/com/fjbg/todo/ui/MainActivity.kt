@@ -11,11 +11,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: TaskViewModel by viewModels()
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TaskApp(viewModel)
+            TaskApp(
+                context = this,
+                viewModel = viewModel
+            )
         }
     }
 }

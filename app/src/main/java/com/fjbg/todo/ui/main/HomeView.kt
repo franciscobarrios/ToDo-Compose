@@ -18,17 +18,19 @@ import com.fjbg.todo.ui.textTaskStatus
 import com.fjbg.todo.ui.theme.*
 
 @Composable
-fun MainTask(
+fun HomeView(
     viewModel: TaskViewModel,
     newTask: () -> Unit
 ) {
     viewModel.observeTaskList().observeAsState().value.let { list ->
         Scaffold(
             bodyContent = {
-                list?.let { it1 ->
+                if (list != null) {
                     LazyColumn(
-                        list = it1
+                        list = list
                     )
+                } else {
+                    emptyList()
                 }
             },
             floatingActionButton = {
@@ -83,6 +85,8 @@ fun createTaskCard(task: Task) {
             .fillMaxWidth()
             .padding(8.dp)
             .clickable(onClick = {
+
+
 
                 //val taskId = intent.getIntExtra(task_id, 0)
                 //                viewModel.getTaskDetail(taskId)

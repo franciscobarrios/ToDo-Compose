@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.fjbg.todo.model.Task
@@ -15,12 +16,18 @@ import com.fjbg.todo.ui.theme.textStyleStatus
 import com.fjbg.todo.ui.theme.textStyleTitle
 
 @Composable
-fun DetailTask(task: Task) {
-    Scaffold(
-        bodyContent = {
-            detailTask(task)
-        }
-    )
+fun DetailTask(
+    viewModel: TaskViewModel,
+    goBack: () -> Unit
+) {
+
+    viewModel.observeTaskDetail().observeAsState().value.let { task ->
+        Scaffold(
+            bodyContent = {
+                task?.let { item -> detailTask(item) }
+            }
+        )
+    }
 }
 
 @Composable
