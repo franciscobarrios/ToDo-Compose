@@ -72,16 +72,14 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
+    // Navigation
+    implementation "androidx.navigation:navigation-compose:$nav_compose_version"
+
     // Hilt
-    implementation "com.google.dagger:hilt-android:2.29.1-alpha"
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
     kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
-
-    //Jetpack Navigation
-    implementation "androidx.navigation:navigation-compose:1.0.0-alpha02"
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

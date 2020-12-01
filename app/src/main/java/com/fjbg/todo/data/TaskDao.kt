@@ -6,10 +6,10 @@ import com.fjbg.todo.model.Task
 @Dao
 interface TaskDao {
 
-    @Query("select * from task")
+    @Query("select * from task_table")
     fun getAll(): List<Task>
 
-    @Query("select * from task where taskId = :taskId")
+    @Query("select * from task_table where taskId = :taskId")
     fun getTaskById(taskId: Int): Task
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -18,6 +18,6 @@ interface TaskDao {
     @Update(onConflict = OnConflictStrategy.IGNORE)
     fun updateTask(task: Task)
 
-    @Query("delete from task where taskId = :taskId")
+    @Query("delete from task_table where taskId = :taskId")
     fun deleteTask(taskId: Int)
 }

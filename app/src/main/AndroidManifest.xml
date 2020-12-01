@@ -12,7 +12,7 @@
         android:theme="@style/Theme.ToDo">
 
         <activity
-            android:name=".ui.splashscreen.SplashScreenActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.ToDo.NoActionBar">
             <intent-filter>
@@ -20,15 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:theme="@style/Theme.ToDo.NoActionBar" />
-        <activity
-            android:name=".ui.newtask.NewTaskActivity"
-            android:theme="@style/Theme.ToDo.NoActionBar" />
-        <activity
-            android:name=".ui.detail.DetailTaskActivity"
-            android:theme="@style/Theme.ToDo.NoActionBar" />
     </application>
 
 </manifest>

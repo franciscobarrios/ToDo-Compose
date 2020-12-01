@@ -4,7 +4,8 @@ buildscript {
         compose_version = '1.0.0-alpha07'
         lifecycle_version = "2.2.0"
         room_version = "2.2.5"
-        nav_version = "2.3.1"
+        nav_compose_version = "1.0.0-alpha02"
+
     }
     ext.kotlin_version = "1.4.10"
     repositories {
@@ -14,7 +15,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.0-alpha14"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:2.29.1-alpha"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.28-alpha"
     }
 }
 
