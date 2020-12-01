@@ -1,4 +1,4 @@
-package com.fjbg.todo.ui.newtask
+package com.fjbg.todo.ui.main
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
@@ -15,8 +15,11 @@ import com.fjbg.todo.ui.saveButton
 import com.fjbg.todo.ui.tfTaskTitle
 
 @Composable
-fun NewTask(viewModel: NewTaskViewModel) {
-    Scaffold(
+fun NewTask(
+    viewModel: TaskViewModel,
+    goBack: () -> Unit
+) {
+    return Scaffold(
         bodyContent = {
             form(viewModel)
         }
@@ -24,11 +27,7 @@ fun NewTask(viewModel: NewTaskViewModel) {
 }
 
 @Composable
-fun form(viewModel: NewTaskViewModel) {
-
-    viewModel.observeSaveTask().observeAsState().value.let {
-    }
-
+fun form(viewModel: TaskViewModel) {
     Surface {
         Column(
             modifier = Modifier.padding(16.dp)

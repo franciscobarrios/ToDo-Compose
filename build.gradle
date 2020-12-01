@@ -4,6 +4,8 @@ buildscript {
         compose_version = '1.0.0-alpha07'
         lifecycle_version = "2.2.0"
         room_version = "2.2.5"
+        nav_compose_version = "1.0.0-alpha02"
+
     }
     ext.kotlin_version = "1.4.10"
     repositories {

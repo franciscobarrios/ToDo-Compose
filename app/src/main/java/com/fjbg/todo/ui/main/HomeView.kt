@@ -1,7 +1,5 @@
 package com.fjbg.todo.ui.main
 
-import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
@@ -10,44 +8,41 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.ripple.RippleIndication
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.fjbg.todo.model.Task
-import com.fjbg.todo.ui.detail.DetailTaskActivity
-import com.fjbg.todo.ui.newtask.NewTaskActivity
 import com.fjbg.todo.ui.textTaskStatus
 import com.fjbg.todo.ui.theme.*
 
 @Composable
-fun MainTask(context: Context, list: List<Task>) {
-    Scaffold(
-        bodyContent = {
-            if (list.isEmpty()) {
-                emptyList()
-            } else {
-                LazyColumn(
-                    context = context,
-                    list = list
+fun MainTask(
+    viewModel: TaskViewModel,
+    newTask: () -> Unit
+) {
+    viewModel.observeTaskList().observeAsState().value.let { list ->
+        Scaffold(
+            bodyContent = {
+                list?.let { it1 ->
+                    LazyColumn(
+                        list = it1
+                    )
+                }
+            },
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = newTask,
+                    icon = { Icon(asset = Icons.Default.Add) }
                 )
             }
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    context.startActivity(Intent(context, NewTaskActivity::class.java))
-                }
-            ) {
-                Icon(asset = Icons.Default.Add)
-            }
-        }
-    )
+        )
+    }
 }
 
 @Composable
 fun LazyColumn(
-    context: Context,
     list: List<Task>
 ) {
     LazyColumnFor(
@@ -60,7 +55,6 @@ fun LazyColumn(
         )
     ) { item ->
         createTaskCard(
-            context = context,
             task = item
         )
     }
@@ -77,7 +71,7 @@ fun emptyList() {
 }
 
 @Composable
-fun createTaskCard(context: Context, task: Task) {
+fun createTaskCard(task: Task) {
     RippleIndication(
         bounded = true
     )
@@ -89,9 +83,18 @@ fun createTaskCard(context: Context, task: Task) {
             .fillMaxWidth()
             .padding(8.dp)
             .clickable(onClick = {
-                val i = Intent(context, DetailTaskActivity::class.java)
+
+                //val taskId = intent.getIntExtra(task_id, 0)
+                //                viewModel.getTaskDetail(taskId)
+                //
+                //                viewModel.observeTaskDetail().observeAsState().value.let { task ->
+                //                    task?.let { DetailTask(it) }
+                //                }
+
+
+                /*val i = Intent(context, DetailTaskActivity::class.java)
                 i.putExtra(task_id, task.taskId)
-                context.startActivity(i)
+                context.startActivity(i)*/
             })
     ) {
         Column {
@@ -141,5 +144,3 @@ fun taskStatus(status: Boolean) {
         modifier = cardStatusModifier
     )
 }
-
-const val task_id = "task_id"
