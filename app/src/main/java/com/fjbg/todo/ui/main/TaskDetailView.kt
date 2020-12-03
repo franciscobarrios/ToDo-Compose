@@ -16,7 +16,7 @@ import com.fjbg.todo.ui.theme.textStyleStatus
 import com.fjbg.todo.ui.theme.textStyleTitle
 
 @Composable
-fun DetailTask(
+fun detailTask(
     viewModel: TaskViewModel,
     goBack: () -> Unit
 ) {

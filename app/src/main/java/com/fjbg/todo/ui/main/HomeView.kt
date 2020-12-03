@@ -18,7 +18,7 @@ import com.fjbg.todo.ui.textTaskStatus
 import com.fjbg.todo.ui.theme.*
 
 @Composable
-fun HomeView(
+fun homeView(
     viewModel: TaskViewModel,
     newTask: () -> Unit
 ) {
@@ -26,7 +26,7 @@ fun HomeView(
         Scaffold(
             bodyContent = {
                 if (list != null) {
-                    LazyColumn(
+                    lazyColumn(
                         list = list
                     )
                 } else {
@@ -44,7 +44,7 @@ fun HomeView(
 }
 
 @Composable
-fun LazyColumn(
+fun lazyColumn(
     list: List<Task>
 ) {
     LazyColumnFor(

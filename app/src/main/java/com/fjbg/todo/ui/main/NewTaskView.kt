@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.fjbg.todo.model.Task
@@ -15,7 +14,7 @@ import com.fjbg.todo.ui.saveButton
 import com.fjbg.todo.ui.tfTaskTitle
 
 @Composable
-fun NewTask(
+fun newTask(
     viewModel: TaskViewModel,
     goBack: () -> Unit
 ) {

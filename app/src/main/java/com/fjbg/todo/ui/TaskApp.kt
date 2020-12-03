@@ -31,19 +31,19 @@ fun TaskApp(
                 )
             }
             composable(Home) {
-                HomeView(
+                homeView(
                     viewModel = viewModel,
                     newTask = actions.newTask
                 )
             }
             composable(AddNewTask) {
-                NewTask(
+                newTask(
                     viewModel = viewModel,
                     goBack = actions.navigateUp
                 )
             }
             composable(TaskDetail) {
-                DetailTask(
+                detailTask(
                     viewModel = viewModel,
                     goBack = actions.navigateUp
                 )
