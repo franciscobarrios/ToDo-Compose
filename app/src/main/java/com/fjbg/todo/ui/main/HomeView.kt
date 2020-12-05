@@ -3,9 +3,9 @@ package com.fjbg.todo.ui.main
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.Card
+import androidx.compose.material.Divider
+import androidx.compose.material.Text
 import androidx.compose.material.ripple.RippleIndication
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -14,31 +14,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.fjbg.todo.model.Task
+import com.fjbg.todo.ui.common.defaultContentView
 import com.fjbg.todo.ui.textTaskStatus
 import com.fjbg.todo.ui.theme.*
 
 @Composable
 fun homeView(
     viewModel: TaskViewModel,
-    newTask: () -> Unit
+    newTask: () -> Unit,
+    title: String,
 ) {
     viewModel.observeTaskList().observeAsState().value.let { list ->
-        Scaffold(
-            bodyContent = {
-                if (list != null) {
-                    lazyColumn(
-                        list = list
-                    )
-                } else {
-                    emptyList()
-                }
-            },
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = newTask,
-                    icon = { Icon(asset = Icons.Default.Add) }
-                )
-            }
+        defaultContentView(
+            title = title,
+            action = newTask,
+            goBack = null,
+            content = { list?.let { lazyColumn(list = it) } },
+            showBottomBar = true
         )
     }
 }
@@ -64,7 +56,9 @@ fun lazyColumn(
 
 @Composable
 fun emptyList() {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
         Text(
             text = "No task to show",
             modifier = Modifier.align(Alignment.Center)
@@ -85,7 +79,6 @@ fun createTaskCard(task: Task) {
             .fillMaxWidth()
             .padding(8.dp)
             .clickable(onClick = {
-
 
 
                 //val taskId = intent.getIntExtra(task_id, 0)

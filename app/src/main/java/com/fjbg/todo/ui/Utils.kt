@@ -15,14 +15,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 const val TAG = ">>>>>>>>>>>>>>>>>>>"
 
 @Composable
 fun splashScreenText(appName: String) {
     Box(Modifier.fillMaxSize()) {
-        Text(
-            text = appName,
+        Text(text = appName,
+            fontSize = 24.sp,
             modifier = Modifier.align(Alignment.Center)
         )
     }

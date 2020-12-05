@@ -4,10 +4,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import com.fjbg.todo.navigation.Destinations.AddNewTask
 import com.fjbg.todo.navigation.Destinations.Home
+import com.fjbg.todo.navigation.Destinations.SplashScreen
 import com.fjbg.todo.navigation.Destinations.TaskDetail
 
 object Destinations {
-    const val SplashScreen = "home"
+    const val SplashScreen = "splashScreen"
     const val Home = "home"
     const val AddNewTask = "addProject"
     const val TaskDetail = "taskDetail"
