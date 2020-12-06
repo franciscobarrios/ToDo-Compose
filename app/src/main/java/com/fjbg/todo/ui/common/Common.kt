@@ -8,7 +8,10 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.fjbg.todo.ui.theme.purple500
+import androidx.compose.ui.unit.dp
+import com.fjbg.todo.ui.theme.almostWhite
+import com.fjbg.todo.ui.theme.primary
+import com.fjbg.todo.ui.theme.primaryDark
 
 @Composable
 fun defaultContentView(
@@ -23,7 +26,10 @@ fun defaultContentView(
         topBar = {
             when (goBack) {
                 null -> topBarHome(title = title)
-                else -> topBar(title = title, goBack = goBack)
+                else -> topBar(
+                    title = title,
+                    goBack = goBack
+                )
             }
         },
         bodyContent = content,
@@ -40,7 +46,7 @@ fun defaultContentView(
         bottomBar = {
             if (showBottomBar) {
                 BottomAppBar(
-                    backgroundColor = purple500,
+                    backgroundColor = primary,
                     cutoutShape = CircleShape,
                     content = {}
                 )
@@ -55,7 +61,7 @@ fun topBarHome(
 ) {
     TopAppBar(
         title = { Text(text = title, color = Color.White) },
-        backgroundColor = purple500
+        backgroundColor = primary
     )
 }
 
@@ -65,11 +71,12 @@ fun topBar(
     goBack: () -> Unit
 ) {
     TopAppBar(
-        title = { Text(text = title, color = Color.White) },
-        backgroundColor = purple500,
+        title = { Text(text = title, color = Color.Black) },
+        backgroundColor = Color.White,
+        elevation = 0.dp,
         navigationIcon = {
             IconButton(onClick = goBack) {
-                Icon(asset = Icons.Filled.ArrowBack, tint = Color.White)
+                Icon(asset = Icons.Filled.ArrowBack, tint = Color.Black)
             }
         }
     )

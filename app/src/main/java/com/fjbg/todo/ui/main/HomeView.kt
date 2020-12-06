@@ -1,7 +1,9 @@
 package com.fjbg.todo.ui.main
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
@@ -9,8 +11,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.ripple.RippleIndication
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.fjbg.todo.model.Task
@@ -29,8 +31,13 @@ fun homeView(
             title = title,
             action = newTask,
             goBack = null,
-            content = { list?.let { lazyColumn(list = it) } },
-            showBottomBar = true
+            showBottomBar = true,
+            content = {
+                when (list) {
+                    null -> emptyList()
+                    else -> lazyColumn(list = list)
+                }
+            }
         )
     }
 }
@@ -56,14 +63,11 @@ fun lazyColumn(
 
 @Composable
 fun emptyList() {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text(
-            text = "No task to show",
-            modifier = Modifier.align(Alignment.Center)
-        )
-    }
+    Text(
+        text = "No task to show",
+        textAlign = TextAlign.Center,
+        style = textStyleTitle
+    )
 }
 
 @Composable
@@ -73,7 +77,7 @@ fun createTaskCard(task: Task) {
     )
     Card(
         shape = shapes.small,
-        elevation = 2.dp,
+        elevation = 4.dp,
         backgroundColor = almostWhite,
         modifier = Modifier
             .fillMaxWidth()

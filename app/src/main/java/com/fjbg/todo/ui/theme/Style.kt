@@ -7,8 +7,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.fjbg.todo.ui.theme.darkGrey
-import com.fjbg.todo.ui.theme.grey
 
 val textStyleTitle = TextStyle(
     fontFamily = FontFamily.Monospace,
@@ -19,21 +17,21 @@ val textStyleTitle = TextStyle(
 val textStyleContent = TextStyle(
     fontFamily = FontFamily.Monospace,
     fontSize = 12.sp,
-    color = grey,
+    color = secondaryText,
     textAlign = TextAlign.Start
 )
 
 val textStyleStatus = TextStyle(
     fontFamily = FontFamily.Monospace,
     fontSize = 12.sp,
-    color = grey,
+    color = secondaryText,
     textAlign = TextAlign.End
 )
 
 val textStyleSmall = TextStyle(
     fontFamily = FontFamily.Monospace,
     fontSize = 10.sp,
-    color = grey,
+    color = secondaryText,
     textAlign = TextAlign.End
 )
 
