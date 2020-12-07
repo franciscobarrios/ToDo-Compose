@@ -1,14 +1,23 @@
 package com.fjbg.todo.ui.common
 
+import androidx.compose.animation.transition
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.fjbg.todo.ui.anim.FabState
+import com.fjbg.todo.ui.anim.sizeState
+import com.fjbg.todo.ui.anim.sizeTransitionDefinition
 import com.fjbg.todo.ui.theme.almostWhite
 import com.fjbg.todo.ui.theme.primary
 import com.fjbg.todo.ui.theme.primaryDark
@@ -22,7 +31,7 @@ fun defaultContentView(
     showBottomBar: Boolean
 ) {
     Scaffold(
-        backgroundColor = Color.White,
+        backgroundColor = almostWhite,
         topBar = {
             when (goBack) {
                 null -> topBarHome(title = title)
@@ -35,10 +44,24 @@ fun defaultContentView(
         bodyContent = content,
         floatingActionButton = {
             if (showBottomBar) {
+                val fabState = remember { mutableStateOf(FabState.Idle) }
                 FloatingActionButton(
-                    onClick = action,
-                    icon = { Icon(asset = Icons.Default.Add) }
+                    onClick = {
+                        if (fabState.value == FabState.Idle) fabState.value =
+                            FabState.Exploded else fabState.value = FabState.Idle
+                    },
+                    backgroundColor = primaryDark,
+                    icon = { Icon(asset = Icons.Default.Add, tint = almostWhite) }
                 )
+
+                val state = transition(
+                    definition = sizeTransitionDefinition(),
+                    toState = fabState.value
+                )
+
+                Canvas(modifier = Modifier.preferredSize(80.dp)) {
+                    drawCircle(Color.Red, state[sizeState])
+                }
             }
         },
         isFloatingActionButtonDocked = showBottomBar,
@@ -60,7 +83,7 @@ fun topBarHome(
     title: String
 ) {
     TopAppBar(
-        title = { Text(text = title, color = Color.White) },
+        title = { Text(text = title, color = almostWhite) },
         backgroundColor = primary
     )
 }
@@ -71,12 +94,12 @@ fun topBar(
     goBack: () -> Unit
 ) {
     TopAppBar(
-        title = { Text(text = title, color = Color.Black) },
-        backgroundColor = Color.White,
+        title = { Text(text = title, color = primary) },
+        backgroundColor = almostWhite,
         elevation = 0.dp,
         navigationIcon = {
             IconButton(onClick = goBack) {
-                Icon(asset = Icons.Filled.ArrowBack, tint = Color.Black)
+                Icon(asset = Icons.Filled.ArrowBack, tint = primary)
             }
         }
     )

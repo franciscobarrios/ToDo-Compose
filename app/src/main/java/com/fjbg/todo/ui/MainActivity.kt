@@ -17,8 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             TaskApp(
                 context = this,
-                viewModel = viewModel,
-                resources = resources,
+                viewModel = viewModel
             )
         }
     }

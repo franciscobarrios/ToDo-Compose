@@ -1,9 +1,7 @@
 package com.fjbg.todo.ui.main
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
@@ -24,6 +22,7 @@ import com.fjbg.todo.ui.theme.*
 fun homeView(
     viewModel: TaskViewModel,
     newTask: () -> Unit,
+    navigateToTask: (Int) -> Unit,
     title: String,
 ) {
     viewModel.observeTaskList().observeAsState().value.let { list ->
@@ -33,9 +32,14 @@ fun homeView(
             goBack = null,
             showBottomBar = true,
             content = {
-                when (list) {
-                    null -> emptyList()
-                    else -> lazyColumn(list = list)
+                if (list != null) {
+                    when {
+                        list.isEmpty() -> emptyList()
+                        else -> lazyColumn(
+                            list = list,
+                            navigateToTask = navigateToTask
+                        )
+                    }
                 }
             }
         )
@@ -44,59 +48,54 @@ fun homeView(
 
 @Composable
 fun lazyColumn(
-    list: List<Task>
+    list: List<Task>,
+    navigateToTask: (Int) -> Unit
 ) {
-    LazyColumnFor(
-        items = list,
-        modifier = Modifier.padding(
-            start = 8.dp,
-            top = 12.dp,
-            end = 8.dp,
-            bottom = 12.dp
-        )
-    ) { item ->
-        createTaskCard(
-            task = item
-        )
+    Box(modifier = Modifier.fillMaxSize()) {
+        LazyColumnFor(
+            items = list,
+            modifier = Modifier.padding(
+                start = 8.dp,
+                top = 12.dp,
+                end = 8.dp,
+                bottom = 12.dp
+            )
+        ) { item ->
+            createTaskCard(
+                task = item,
+                navigateToTask = navigateToTask
+            )
+        }
     }
 }
 
 @Composable
 fun emptyList() {
-    Text(
-        text = "No task to show",
-        textAlign = TextAlign.Center,
-        style = textStyleTitle
-    )
+    Box(modifier = Modifier.fillMaxSize()) {
+        Text(
+            text = "No task to show",
+            textAlign = TextAlign.Center,
+            color = secondaryText
+        )
+    }
 }
 
 @Composable
-fun createTaskCard(task: Task) {
+fun createTaskCard(
+    task: Task,
+    navigateToTask: (Int) -> Unit
+) {
     RippleIndication(
         bounded = true
     )
     Card(
         shape = shapes.small,
         elevation = 4.dp,
-        backgroundColor = almostWhite,
+        backgroundColor = secondaryLight,
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable(onClick = {
-
-
-                //val taskId = intent.getIntExtra(task_id, 0)
-                //                viewModel.getTaskDetail(taskId)
-                //
-                //                viewModel.observeTaskDetail().observeAsState().value.let { task ->
-                //                    task?.let { DetailTask(it) }
-                //                }
-
-
-                /*val i = Intent(context, DetailTaskActivity::class.java)
-                i.putExtra(task_id, task.taskId)
-                context.startActivity(i)*/
-            })
+            .clickable(onClick = { navigateToTask(task.taskId) })
     ) {
         Column {
             taskTitle(task.taskTitle)

@@ -19,8 +19,7 @@ import com.fjbg.todo.ui.theme.ToDoTheme
 @Composable
 fun TaskApp(
     context: Context,
-    viewModel: TaskViewModel,
-    resources: Resources
+    viewModel: TaskViewModel
 ) {
     val navController = rememberNavController()
     val actions = remember(navController) { Action(navController) }
@@ -28,11 +27,10 @@ fun TaskApp(
     ToDoTheme {
         NavHost(
             navController = navController,
-            startDestination = SplashScreen
+            startDestination = Home
         ) {
             composable(SplashScreen) {
                 splashScreen(
-                    context = context,
                     goHome = actions.home
                 )
             }
@@ -40,14 +38,15 @@ fun TaskApp(
                 homeView(
                     viewModel = viewModel,
                     newTask = actions.newTask,
-                    title = resources.getString(R.string.app_name)
+                    navigateToTask= actions.taskDetail,
+                    title = context.resources.getString(R.string.app_name)
                 )
             }
             composable(AddNewTask) {
                 newTask(
                     viewModel = viewModel,
                     goBack = actions.navigateUp,
-                    title = resources.getString(R.string.new_task)
+                    title = context.resources.getString(R.string.new_task)
                 )
             }
             composable(TaskDetail) {

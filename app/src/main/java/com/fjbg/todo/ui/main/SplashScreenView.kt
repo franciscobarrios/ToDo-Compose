@@ -1,10 +1,10 @@
 package com.fjbg.todo.ui.main
 
-import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ContextAmbient
 import com.fjbg.todo.R
 import com.fjbg.todo.ui.anim.showIntroAnimation
 import com.fjbg.todo.ui.splashScreenText
@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun splashScreen(
-    context: Context,
     goHome: () -> Unit
 ) {
     Scaffold(
@@ -23,9 +22,9 @@ fun splashScreen(
         bodyContent = {
             Column {
                 showIntroAnimation()
-                splashScreenText(context.resources.getString(R.string.app_name))
+                splashScreenText(ContextAmbient.current.resources.getString(R.string.app_name))
                 GlobalScope.launch(Dispatchers.Main) {
-                    delay(200)
+                    delay(2000)
                     goHome.invoke()
                 }
             }

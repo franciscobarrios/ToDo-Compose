@@ -14,7 +14,7 @@ class TaskViewModel @ViewModelInject constructor(
     private val repository: TaskRepository
 ) : ViewModel() {
 
-    // Main Tasks
+    // Task list
     private val taskListLiveData = MutableLiveData<List<Task>>()
     fun observeTaskList(): LiveData<List<Task>> {
         return taskListLiveData
@@ -51,6 +51,13 @@ class TaskViewModel @ViewModelInject constructor(
     fun getTaskDetail(taskId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             taskDetailLiveData.postValue(repository.getTaskById(taskId))
+        }
+    }
+
+    //Delete task
+    fun deleteTask(taskId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteTask(taskId)
         }
     }
 }
