@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.fjbg.todo.ui.anim.FabState
 import com.fjbg.todo.ui.anim.sizeState
@@ -45,22 +44,26 @@ fun defaultContentView(
         floatingActionButton = {
             if (showBottomBar) {
                 val fabState = remember { mutableStateOf(FabState.Idle) }
-                FloatingActionButton(
+
+                val state = transition(
+                    definition = sizeTransitionDefinition(),
+                    initState = FabState.Idle,
+                    toState = fabState.value
+                )
+
+               /* FloatingActionButton(
                     onClick = {
                         if (fabState.value == FabState.Idle) fabState.value =
                             FabState.Exploded else fabState.value = FabState.Idle
                     },
                     backgroundColor = primaryDark,
                     icon = { Icon(asset = Icons.Default.Add, tint = almostWhite) }
-                )
+                )*/
 
-                val state = transition(
-                    definition = sizeTransitionDefinition(),
-                    toState = fabState.value
-                )
+                
 
                 Canvas(modifier = Modifier.preferredSize(80.dp)) {
-                    drawCircle(Color.Red, state[sizeState])
+                    drawCircle(almostWhite, state[sizeState])
                 }
             }
         },
