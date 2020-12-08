@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieAnimationSpec
@@ -47,7 +46,7 @@ fun colorTransitionDefinition(): TransitionDefinition<FabColorState> {
         state(FabColorState.IdleColor) { this[colorState] = primaryDark }
         state(FabColorState.ExplodedColor) { this[colorState] = almostWhite }
         transition(fromState = FabColorState.IdleColor, toState = FabColorState.ExplodedColor) {
-            colorState using tween<Color>(
+            colorState using tween(
                 durationMillis = 200,
                 easing = LinearEasing
             )

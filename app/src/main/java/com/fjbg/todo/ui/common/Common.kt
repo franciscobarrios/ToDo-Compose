@@ -77,12 +77,9 @@ fun exploitingFloatingActionButton() {
         toState = FabColorState.ExplodedColor,
         onStateChangeFinished = { state ->
             when (state) {
-                FabColorState.IdleColor -> fabColorState.value =
-                    FabColorState.ExplodedColor
-                FabColorState.ExplodedColor -> fabColorState.value =
-                    FabColorState.IdleColor
+                FabColorState.IdleColor -> fabColorState.value = FabColorState.ExplodedColor
+                FabColorState.ExplodedColor -> fabColorState.value = FabColorState.IdleColor
             }
-
             Log.d(TAG, "onStateChangeFinished: state: $state")
         }
     )
