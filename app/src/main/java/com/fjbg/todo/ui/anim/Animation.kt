@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieAnimationSpec
@@ -34,15 +35,30 @@ val sizeState = FloatPropKey()
 val colorState = ColorPropKey()
 
 enum class FabState {
-    Idle, Exploded, IdleColor, ExplodedColor
+    Idle, Exploded
+}
+
+enum class FabColorState {
+    IdleColor, ExplodedColor
+}
+
+fun colorTransitionDefinition(): TransitionDefinition<FabColorState> {
+    return transitionDefinition {
+        state(FabColorState.IdleColor) { this[colorState] = primaryDark }
+        state(FabColorState.ExplodedColor) { this[colorState] = almostWhite }
+        transition(fromState = FabColorState.IdleColor, toState = FabColorState.ExplodedColor) {
+            colorState using tween<Color>(
+                durationMillis = 200,
+                easing = LinearEasing
+            )
+        }
+    }
 }
 
 fun sizeTransitionDefinition(): TransitionDefinition<FabState> {
     return transitionDefinition {
         state(FabState.Idle) { this[sizeState] = 80f }
         state(FabState.Exploded) { this[sizeState] = 4000f }
-        state(FabState.IdleColor) { this[colorState] = primaryDark }
-        state(FabState.ExplodedColor) { this[colorState] = almostWhite }
 
         transition(fromState = FabState.Idle, toState = FabState.Exploded) {
             sizeState using keyframes {
