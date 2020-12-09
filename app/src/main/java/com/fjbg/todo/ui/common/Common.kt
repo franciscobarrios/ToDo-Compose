@@ -74,14 +74,7 @@ fun exploitingFloatingActionButton() {
     transition(
         definition = colorTransitionDefinition(),
         initState = FabColorState.IdleColor,
-        toState = FabColorState.ExplodedColor,
-        onStateChangeFinished = { state ->
-            when (state) {
-                FabColorState.IdleColor -> fabColorState.value = FabColorState.ExplodedColor
-                FabColorState.ExplodedColor -> fabColorState.value = FabColorState.IdleColor
-            }
-            Log.d(TAG, "onStateChangeFinished: state: $state")
-        }
+        toState = FabColorState.ExplodedColor
     )
     FloatingActionButton(
         backgroundColor = primaryDark,
@@ -90,6 +83,11 @@ fun exploitingFloatingActionButton() {
             when (fabState.value) {
                 FabState.Idle -> fabState.value = FabState.Exploded
                 FabState.Exploded -> fabState.value = FabState.Idle
+            }
+
+            when (fabColorState.value) {
+                FabColorState.IdleColor -> fabColorState.value = FabColorState.ExplodedColor
+                FabColorState.ExplodedColor -> fabColorState.value = FabColorState.IdleColor
             }
 
             Log.d(TAG, "defaultContentView: fabState: ${fabState.value}")
