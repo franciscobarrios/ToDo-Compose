@@ -37,7 +37,7 @@ enum class FabState {
     Idle, Exploded
 }
 
-const val animationDuration = 900
+const val animationDuration = 600
 
 fun sizeTransitionDefinition(): TransitionDefinition<FabState> {
     return transitionDefinition {

@@ -65,7 +65,6 @@ fun defaultContentView(
 
 @Composable
 fun fab(
-    action: () -> Unit,
     fabState: MutableState<FabState>,
     transition: TransitionState
 ) {
@@ -86,12 +85,13 @@ fun explodingFloatingActionButton(action: () -> Unit) {
     val transition = transition(
         definition = sizeTransitionDefinition(),
         initState = FabState.Idle,
-        toState = if (fabState.value == FabState.Idle) FabState.Exploded else FabState.Idle
+        toState = if (fabState.value == FabState.Idle) FabState.Exploded else FabState.Idle,
+        onStateChangeFinished = { action.invoke() }
     )
+
     fab(
         fabState = fabState,
-        transition = transition,
-        action = action
+        transition = transition
     )
 
     Log.d(TAG, "fabState: ${fabState.value}")
