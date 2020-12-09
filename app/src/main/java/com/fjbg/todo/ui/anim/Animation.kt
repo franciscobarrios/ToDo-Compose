@@ -37,35 +37,30 @@ enum class FabState {
     Idle, Exploded
 }
 
-enum class FabColorState {
-    IdleColor, ExplodedColor
-}
-
-fun colorTransitionDefinition(): TransitionDefinition<FabColorState> {
-    return transitionDefinition {
-        state(FabColorState.IdleColor) { this[colorState] = primaryDark }
-        state(FabColorState.ExplodedColor) { this[colorState] = almostWhite }
-        transition(fromState = FabColorState.IdleColor, toState = FabColorState.ExplodedColor) {
-            colorState using tween(
-                durationMillis = 200,
-                easing = LinearEasing
-            )
-        }
-    }
-}
+const val animationDuration = 900
 
 fun sizeTransitionDefinition(): TransitionDefinition<FabState> {
     return transitionDefinition {
-        state(FabState.Idle) { this[sizeState] = 80f }
-        state(FabState.Exploded) { this[sizeState] = 4000f }
+        state(FabState.Idle) {
+            this[sizeState] = 62f
+            this[colorState] = primaryDark
+        }
+        state(FabState.Exploded) {
+            this[sizeState] = 2000f
+            this[colorState] = almostWhite
+        }
 
         transition(fromState = FabState.Idle, toState = FabState.Exploded) {
             sizeState using keyframes {
-                durationMillis = 900
+                durationMillis = animationDuration
                 80f at 0
                 35f at 150
-                4000f at 900
+                2000f at animationDuration
             }
+            colorState using tween(
+                durationMillis = animationDuration,
+                easing = LinearEasing
+            )
         }
     }
 }
