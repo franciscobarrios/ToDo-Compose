@@ -11,8 +11,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieAnimationSpec
 import com.airbnb.lottie.compose.rememberLottieAnimationState
 import com.fjbg.todo.R
-import com.fjbg.todo.ui.theme.almostWhite
 import com.fjbg.todo.ui.theme.primaryDark
+import com.fjbg.todo.ui.theme.white
 
 @Composable
 fun showIntroAnimation() {
@@ -32,22 +32,24 @@ fun showIntroAnimation() {
 
 val sizeState = FloatPropKey()
 val colorState = ColorPropKey()
+val alphaState = FloatPropKey()
 
-enum class FabState {
-    Idle, Exploded
-}
+enum class FabState { Idle, Exploded }
+enum class BottomBarState { Show, Hide }
 
-const val animationDuration = 600
+const val animationDuration = 800
 
-fun sizeTransitionDefinition(): TransitionDefinition<FabState> {
+fun fabSizeTransitionDefinition(): TransitionDefinition<FabState> {
     return transitionDefinition {
         state(FabState.Idle) {
-            this[sizeState] = 62f
+            this[sizeState] = 58f
             this[colorState] = primaryDark
+            this[alphaState] = 1f
         }
         state(FabState.Exploded) {
             this[sizeState] = 2000f
-            this[colorState] = almostWhite
+            this[colorState] = white
+            this[alphaState] = 0f
         }
 
         transition(fromState = FabState.Idle, toState = FabState.Exploded) {
@@ -61,6 +63,15 @@ fun sizeTransitionDefinition(): TransitionDefinition<FabState> {
                 durationMillis = animationDuration,
                 easing = LinearEasing
             )
+        }
+    }
+}
+
+fun hideBottomBarTransitionDefinition(): TransitionDefinition<BottomBarState> {
+    return transitionDefinition {
+        state(BottomBarState.Show) {
+            this[sizeState] = 42f
+            this[colorState] = primaryDark
         }
     }
 }

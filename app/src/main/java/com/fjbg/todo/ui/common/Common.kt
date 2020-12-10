@@ -1,6 +1,5 @@
 package com.fjbg.todo.ui.common
 
-import android.util.Log
 import androidx.compose.animation.core.TransitionState
 import androidx.compose.animation.transition
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,19 +9,20 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.fjbg.todo.ui.TAG
 import com.fjbg.todo.ui.anim.FabState
 import com.fjbg.todo.ui.anim.colorState
+import com.fjbg.todo.ui.anim.fabSizeTransitionDefinition
 import com.fjbg.todo.ui.anim.sizeState
-import com.fjbg.todo.ui.anim.sizeTransitionDefinition
 import com.fjbg.todo.ui.theme.almostWhite
 import com.fjbg.todo.ui.theme.primary
+import com.fjbg.todo.ui.theme.white
 
 @Composable
 fun defaultContentView(
@@ -33,14 +33,10 @@ fun defaultContentView(
     showBottomBar: Boolean
 ) {
     Scaffold(
-        backgroundColor = almostWhite,
+        backgroundColor = white,
         topBar = {
-            when (goBack) {
-                null -> topBarHome(title = title)
-                else -> topBar(
-                    title = title,
-                    goBack = goBack
-                )
+            if (goBack != null) {
+                topBar(title = title, goBack = goBack)
             }
         },
         bodyContent = content,
@@ -54,10 +50,12 @@ fun defaultContentView(
         bottomBar = {
             if (showBottomBar) {
                 BottomAppBar(
-                    backgroundColor = primary,
-                    cutoutShape = CircleShape,
-                    content = {}
-                )
+                    cutoutShape = CircleShape
+                ) {
+                    IconButton(onClick = { /*show options*/ }) {
+                        Icon(Icons.Filled.Menu)
+                    }
+                }
             }
         }
     )
@@ -70,41 +68,27 @@ fun fab(
 ) {
     FloatingActionButton(
         backgroundColor = transition[colorState],
-        icon = { Icon(asset = Icons.Default.Add, tint = almostWhite) },
+        icon = {
+            Icon(
+                asset = Icons.Default.Add,
+                tint = almostWhite,
+            )
+        },
         modifier = Modifier.size(transition[sizeState].dp),
-        onClick = {
-            //action.invoke()
-            fabState.value = FabState.Idle
-        }
+        onClick = { fabState.value = FabState.Idle }
     )
 }
 
 @Composable
 fun explodingFloatingActionButton(action: () -> Unit) {
-    val fabState = remember { mutableStateOf(FabState.Exploded) }
+    val state = remember { mutableStateOf(FabState.Exploded) }
     val transition = transition(
-        definition = sizeTransitionDefinition(),
+        definition = fabSizeTransitionDefinition(),
         initState = FabState.Idle,
-        toState = if (fabState.value == FabState.Idle) FabState.Exploded else FabState.Idle,
+        toState = if (state.value == FabState.Idle) FabState.Exploded else FabState.Idle,
         onStateChangeFinished = { action.invoke() }
     )
-
-    fab(
-        fabState = fabState,
-        transition = transition
-    )
-
-    Log.d(TAG, "fabState: ${fabState.value}")
-}
-
-@Composable
-fun topBarHome(
-    title: String
-) {
-    TopAppBar(
-        title = { Text(text = title, color = almostWhite) },
-        backgroundColor = primary
-    )
+    fab(fabState = state, transition = transition)
 }
 
 @Composable
@@ -114,7 +98,7 @@ fun topBar(
 ) {
     TopAppBar(
         title = { Text(text = title, color = primary) },
-        backgroundColor = almostWhite,
+        backgroundColor = white,
         elevation = 0.dp,
         navigationIcon = {
             IconButton(onClick = goBack) {

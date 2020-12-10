@@ -91,7 +91,7 @@ fun createTaskCard(
     Card(
         shape = shapes.small,
         elevation = 4.dp,
-        backgroundColor = secondaryLight,
+        backgroundColor = almostWhite,
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
