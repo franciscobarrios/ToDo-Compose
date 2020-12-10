@@ -1,11 +1,10 @@
 package com.fjbg.todo.ui
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -18,6 +17,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fjbg.todo.ui.theme.errorColor
+import com.fjbg.todo.ui.theme.textStyleTitle
+import com.fjbg.todo.ui.theme.white
 
 const val TAG = ">>>>>>>>>>>>>>>>>>>"
 
@@ -36,6 +37,8 @@ fun splashScreenText(appName: String) {
 fun tfTaskTitle(placeHolder: String): String {
     val textState = remember { mutableStateOf(TextFieldValue()) }
     TextField(
+        backgroundColor = white,
+        modifier = Modifier.fillMaxWidth(),
         errorColor = errorColor,
         shape = CircleShape,
         value = textState.value,
@@ -43,19 +46,20 @@ fun tfTaskTitle(placeHolder: String): String {
         placeholder = {
             Text(
                 text = placeHolder,
+                style = textStyleTitle,
                 maxLines = 1
             )
         }
     )
-    Spacer(modifier = Modifier.padding(12.dp))
-    return textState.value.text
+    return if (textState.value.text.isNotEmpty()) textState.value.text else ""
 }
 
 @Composable
-fun saveButton(text: String, onCLick: () -> Unit) {
+fun saveButton(text: String, enabled: Boolean, onCLick: () -> Unit) {
     Button(
+        enabled = enabled,
         onClick = onCLick,
-        shape = RoundedCornerShape(8.dp)
+        shape = CircleShape
     ) {
         Text(
             text = text,

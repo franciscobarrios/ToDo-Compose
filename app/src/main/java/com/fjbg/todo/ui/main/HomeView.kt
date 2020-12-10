@@ -3,12 +3,17 @@ package com.fjbg.todo.ui.main
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.ripple.RippleIndication
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -22,6 +27,7 @@ import com.fjbg.todo.ui.theme.*
 fun homeView(
     viewModel: TaskViewModel,
     newTask: () -> Unit,
+    settings: () -> Unit,
     navigateToTask: (Int) -> Unit,
     title: String,
 ) {
@@ -29,20 +35,38 @@ fun homeView(
         defaultContentView(
             title = title,
             action = newTask,
+            settings = settings,
             goBack = null,
             showBottomBar = true,
             content = {
-                if (list != null) {
-                    when {
-                        list.isEmpty() -> emptyList()
-                        else -> lazyColumn(
-                            list = list,
-                            navigateToTask = navigateToTask
-                        )
-                    }
-                }
+                contentTop(
+                    list = list,
+                    navigateToTask = navigateToTask
+                )
             }
         )
+    }
+}
+
+@Composable
+fun contentTop(
+    list: List<Task>?,
+    navigateToTask: (Int) -> Unit
+) {
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Column {
+            greetings(userName = "Fran")
+            date()
+            if (list != null) {
+                when {
+                    list.isEmpty() -> emptyList()
+                    else -> lazyColumn(
+                        list = list,
+                        navigateToTask = navigateToTask
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -51,20 +75,37 @@ fun lazyColumn(
     list: List<Task>,
     navigateToTask: (Int) -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier.fillMaxSize().padding(12.dp)
+    ) {
         LazyColumnFor(
-            items = list,
-            modifier = Modifier.padding(
-                start = 8.dp,
-                top = 12.dp,
-                end = 8.dp,
-                bottom = 12.dp
-            )
+            items = list
         ) { item ->
             createTaskCard(
                 task = item,
                 navigateToTask = navigateToTask
             )
+        }
+    }
+}
+
+@Composable
+fun greetings(userName: String) {
+    Text(
+        text = "Hey $userName,\nthis is your to-do list",
+        style = textStyleTopMessage,
+        modifier = Modifier.padding(12.dp)
+    )
+}
+
+@Composable
+fun date() {
+    Box(
+        modifier = Modifier.clickable(onClick = { /*TODO: open calendar*/ }).padding(12.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(asset = Icons.Outlined.DateRange, modifier = Modifier.padding(end = 4.dp))
+            Text(text = "Today is Dec. 12th", style = textStyleDate)
         }
     }
 }
@@ -89,12 +130,12 @@ fun createTaskCard(
         bounded = true
     )
     Card(
-        shape = shapes.small,
+        shape = RoundedCornerShape(12.dp),
         elevation = 4.dp,
         backgroundColor = almostWhite,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(top = 12.dp, bottom = 12.dp)
             .clickable(onClick = { navigateToTask(task.taskId) })
     ) {
         Column {

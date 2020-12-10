@@ -28,6 +28,7 @@ import com.fjbg.todo.ui.theme.white
 fun defaultContentView(
     title: String,
     action: () -> Unit,
+    settings: (() -> Unit)?,
     goBack: (() -> Unit)?,
     content: @Composable (PaddingValues) -> Unit,
     showBottomBar: Boolean
@@ -52,9 +53,8 @@ fun defaultContentView(
                 BottomAppBar(
                     cutoutShape = CircleShape
                 ) {
-                    IconButton(onClick = { /*show options*/ }) {
-                        Icon(Icons.Filled.Menu)
-                    }
+                    if (settings != null)
+                        IconButton(onClick = settings) { Icon(Icons.Filled.Menu) }
                 }
             }
         }
