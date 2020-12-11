@@ -24,7 +24,7 @@ fun newTask(
         title = "",
         action = { },
         goBack = goBack,
-        settings = null,
+        drawerState = null,
         showBottomBar = false,
         content = {
             formNewTask(viewModel = viewModel)

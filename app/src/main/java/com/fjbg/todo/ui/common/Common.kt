@@ -9,7 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -22,13 +22,14 @@ import com.fjbg.todo.ui.anim.fabSizeTransitionDefinition
 import com.fjbg.todo.ui.anim.sizeState
 import com.fjbg.todo.ui.theme.almostWhite
 import com.fjbg.todo.ui.theme.primary
+import com.fjbg.todo.ui.theme.primaryDark
 import com.fjbg.todo.ui.theme.white
 
 @Composable
 fun defaultContentView(
     title: String,
     action: () -> Unit,
-    settings: (() -> Unit)?,
+    drawerState: BottomDrawerState?,
     goBack: (() -> Unit)?,
     content: @Composable (PaddingValues) -> Unit,
     showBottomBar: Boolean
@@ -50,14 +51,37 @@ fun defaultContentView(
         floatingActionButtonPosition = FabPosition.Center,
         bottomBar = {
             if (showBottomBar) {
-                BottomAppBar(
-                    cutoutShape = CircleShape
-                ) {
-                    if (settings != null)
-                        IconButton(onClick = settings) { Icon(Icons.Filled.Menu) }
+                BottomAppBar(cutoutShape = CircleShape) {
+                    IconButton(
+                        onClick = {
+                            drawerState?.dr
+                        }) {
+                        Icon(Icons.Filled.MoreVert)
+                    }
                 }
             }
-        }
+        },
+        drawerContent = drawer()
+    )
+}
+
+@Composable
+fun drawer() {
+    val drawerState = rememberBottomDrawerState(initialValue = BottomDrawerValue.Open)
+    BottomDrawerLayout(
+        gesturesEnabled = true,
+        drawerState = drawerState,
+        bodyContent = {
+            Button(
+                onClick = {
+                    drawerState.close()
+                }) {
+                Text(text = "press")
+            }
+        },
+        drawerBackgroundColor = almostWhite,
+        drawerElevation = 8.dp,
+        drawerContentColor = primaryDark
     )
 }
 
