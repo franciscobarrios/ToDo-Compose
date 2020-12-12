@@ -1,5 +1,6 @@
 package com.fjbg.todo.ui.common
 
+import android.util.Log
 import androidx.compose.animation.core.TransitionState
 import androidx.compose.animation.transition
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,13 +17,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.fjbg.todo.ui.TAG
 import com.fjbg.todo.ui.anim.FabState
 import com.fjbg.todo.ui.anim.colorState
 import com.fjbg.todo.ui.anim.fabSizeTransitionDefinition
 import com.fjbg.todo.ui.anim.sizeState
 import com.fjbg.todo.ui.theme.almostWhite
 import com.fjbg.todo.ui.theme.primary
-import com.fjbg.todo.ui.theme.primaryDark
 import com.fjbg.todo.ui.theme.white
 
 @Composable
@@ -54,34 +55,13 @@ fun defaultContentView(
                 BottomAppBar(cutoutShape = CircleShape) {
                     IconButton(
                         onClick = {
-                            drawerState?.dr
+                            Log.d(TAG, "onClick: ${drawerState?.value}")
                         }) {
                         Icon(Icons.Filled.MoreVert)
                     }
                 }
             }
-        },
-        drawerContent = drawer()
-    )
-}
-
-@Composable
-fun drawer() {
-    val drawerState = rememberBottomDrawerState(initialValue = BottomDrawerValue.Open)
-    BottomDrawerLayout(
-        gesturesEnabled = true,
-        drawerState = drawerState,
-        bodyContent = {
-            Button(
-                onClick = {
-                    drawerState.close()
-                }) {
-                Text(text = "press")
-            }
-        },
-        drawerBackgroundColor = almostWhite,
-        drawerElevation = 8.dp,
-        drawerContentColor = primaryDark
+        }
     )
 }
 

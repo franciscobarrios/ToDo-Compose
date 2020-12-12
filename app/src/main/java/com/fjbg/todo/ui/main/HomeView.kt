@@ -36,17 +36,20 @@ fun homeView(
             goBack = null,
             showBottomBar = true,
             content = {
-                contentTop(
-                    list = list,
-                    navigateToTask = navigateToTask
-                )
+                drawer(
+                    drawerState = drawerState, content = {
+                        contentMain(
+                            list = list,
+                            navigateToTask = navigateToTask
+                        )
+                    })
             }
         )
     }
 }
 
 @Composable
-fun contentTop(
+fun contentMain(
     list: List<Task>?,
     navigateToTask: (Int) -> Unit
 ) {
@@ -85,6 +88,23 @@ fun lazyColumn(
         }
     }
 }
+
+@Composable
+fun drawer(
+    drawerState: BottomDrawerState,
+    content: @Composable () -> Unit,
+) {
+    BottomDrawerLayout(
+        gesturesEnabled = true,
+        drawerState = drawerState,
+        bodyContent = content,
+        drawerBackgroundColor = almostWhite,
+        drawerElevation = 8.dp,
+        drawerContentColor = primaryDark,
+        drawerContent = {}
+    )
+}
+
 
 @Composable
 fun greetings(userName: String) {
@@ -182,3 +202,4 @@ fun taskStatus(status: Boolean) {
         modifier = cardStatusModifier
     )
 }
+
