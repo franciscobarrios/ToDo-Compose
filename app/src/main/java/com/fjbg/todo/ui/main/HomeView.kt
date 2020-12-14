@@ -1,5 +1,6 @@
 package com.fjbg.todo.ui.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.fjbg.todo.model.Task
 import com.fjbg.todo.ui.common.defaultContentView
 import com.fjbg.todo.ui.textTaskStatus
+import com.fjbg.todo.ui.tfTaskTitle
 import com.fjbg.todo.ui.theme.*
 
 @Composable
@@ -98,13 +100,36 @@ fun drawer(
         gesturesEnabled = true,
         drawerState = drawerState,
         bodyContent = content,
-        drawerBackgroundColor = almostWhite,
+        drawerBackgroundColor = white,
         drawerElevation = 8.dp,
         drawerContentColor = primaryDark,
-        drawerContent = {}
+        drawerShape = RoundedCornerShape(
+            topLeft = corner_radius, topRight = corner_radius
+        ),
+        drawerContent = {
+            bottomDrawerContent()
+        }
     )
 }
 
+@Composable
+fun bottomDrawerContent() {
+    Box(
+        modifier = Modifier.padding(
+            top = 20.dp, end = 12.dp, start = 12.dp
+        ).background(white)
+    ) {
+        Column {
+            Text(
+                text = "Set your name",
+                style = textStyleTitle,
+                modifier = Modifier.padding(8.dp)
+            )
+            Spacer(modifier = Modifier.padding(12.dp))
+            val title = tfTaskTitle("John Doe")
+        }
+    }
+}
 
 @Composable
 fun greetings(userName: String) {
@@ -147,7 +172,7 @@ fun createTaskCard(
         bounded = true
     )
     Card(
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(corner_radius),
         elevation = 4.dp,
         backgroundColor = almostWhite,
         modifier = Modifier

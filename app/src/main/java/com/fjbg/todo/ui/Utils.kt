@@ -1,5 +1,6 @@
 package com.fjbg.todo.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fjbg.todo.ui.theme.errorColor
+import com.fjbg.todo.ui.theme.secondaryDark
 import com.fjbg.todo.ui.theme.textStyleTitle
 import com.fjbg.todo.ui.theme.white
 
@@ -38,13 +40,15 @@ fun tfTaskTitle(placeHolder: String): String {
     val textState = remember { mutableStateOf(TextFieldValue()) }
     TextField(
         backgroundColor = white,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
+            .clickable(onClick = {}),
         errorColor = errorColor,
         shape = CircleShape,
         value = textState.value,
         onValueChange = { textState.value = it },
         placeholder = {
             Text(
+                color = secondaryDark,
                 text = placeHolder,
                 style = textStyleTitle,
                 maxLines = 1

@@ -35,9 +35,10 @@ val colorState = ColorPropKey()
 val alphaState = FloatPropKey()
 
 enum class FabState { Idle, Exploded }
+enum class BottomDrawerSate { Opened, Closed }
 enum class BottomBarState { Show, Hide }
 
-const val animationDuration = 800
+const val animationDuration = 700
 
 fun fabSizeTransitionDefinition(): TransitionDefinition<FabState> {
     return transitionDefinition {
@@ -47,7 +48,7 @@ fun fabSizeTransitionDefinition(): TransitionDefinition<FabState> {
             this[alphaState] = 1f
         }
         state(FabState.Exploded) {
-            this[sizeState] = 2000f
+            this[sizeState] = 4000f
             this[colorState] = white
             this[alphaState] = 0f
         }
@@ -55,13 +56,13 @@ fun fabSizeTransitionDefinition(): TransitionDefinition<FabState> {
         transition(fromState = FabState.Idle, toState = FabState.Exploded) {
             sizeState using keyframes {
                 durationMillis = animationDuration
-                80f at 0
-                35f at 150
-                2000f at animationDuration
+                58f at 0
+                30f at 150
+                4000f at animationDuration
             }
             colorState using tween(
                 durationMillis = animationDuration,
-                easing = LinearEasing
+                easing = FastOutSlowInEasing
             )
         }
     }

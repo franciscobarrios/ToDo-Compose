@@ -8,7 +8,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
 import com.fjbg.todo.model.Task
 import com.fjbg.todo.ui.common.defaultContentView
 import com.fjbg.todo.ui.saveButton
@@ -42,11 +41,11 @@ fun formNewTask(viewModel: TaskViewModel?) {
                 text = "Create a new task",
                 style = textStyleTopMessage
             )
-            Spacer(modifier = Modifier.padding(24.dp))
+            Spacer(modifier = Modifier.padding(18.dp))
             val title = tfTaskTitle("Title")
-            Spacer(modifier = Modifier.padding(24.dp))
+            Spacer(modifier = Modifier.padding(18.dp))
             val content = tfTaskTitle("Content")
-            Spacer(modifier = Modifier.padding(24.dp))
+            Spacer(modifier = Modifier.padding(18.dp))
             saveButton(
                 text = "Save",
                 enabled = title.isNotBlank(),
@@ -63,10 +62,4 @@ fun formNewTask(viewModel: TaskViewModel?) {
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun formNewTaskPreview() {
-    formNewTask(viewModel = null)
 }

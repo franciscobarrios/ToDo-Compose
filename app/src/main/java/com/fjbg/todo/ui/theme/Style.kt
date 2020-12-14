@@ -9,6 +9,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+
 /* Text styles */
 val textStyleTopMessage = TextStyle(
     fontFamily = FontFamily.Serif,
@@ -62,6 +63,9 @@ val textStyleSmall = TextStyle(
 )
 
 /* Card styles */
+
+val corner_radius = 18.dp
+
 val cardTitleModifier = Modifier
     .padding(
         top = 12.dp,
