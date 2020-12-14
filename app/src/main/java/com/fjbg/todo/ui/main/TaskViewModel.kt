@@ -14,11 +14,14 @@ class TaskViewModel @ViewModelInject constructor(
     private val repository: TaskRepository
 ) : ViewModel() {
 
-    // Task list
-    private val taskListLiveData = MutableLiveData<List<Task>>()
-    fun observeTaskList(): LiveData<List<Task>> {
-        return taskListLiveData
-    }
+    private val _taskList = MutableLiveData<List<Task>>()
+    fun taskList(): LiveData<List<Task>> = _taskList
+
+    val _saveTask = MutableLiveData<Task>()
+    fun saveTask(): LiveData<Task> = _saveTask
+
+    private val _taskDetail = MutableLiveData<Task>()
+    fun taskDetail(): LiveData<Task> = _taskDetail
 
     init {
         getTasks()
@@ -26,14 +29,8 @@ class TaskViewModel @ViewModelInject constructor(
 
     private fun getTasks() {
         viewModelScope.launch(Dispatchers.IO) {
-            taskListLiveData.postValue(repository.getTasks())
+            _taskList.postValue(repository.getTasks())
         }
-    }
-
-    // New Tasks
-    val saveTaskLiveData = MutableLiveData<Task>()
-    fun observeSaveTask(): LiveData<Task> {
-        return saveTaskLiveData
     }
 
     fun addNewTask(task: Task) {
@@ -42,19 +39,12 @@ class TaskViewModel @ViewModelInject constructor(
         }
     }
 
-    // Detail task
-    private val taskDetailLiveData = MutableLiveData<Task>()
-    fun observeTaskDetail(): LiveData<Task> {
-        return taskDetailLiveData
-    }
-
     fun getTaskDetail(taskId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            taskDetailLiveData.postValue(repository.getTaskById(taskId))
+            _taskDetail.postValue(repository.getTaskById(taskId))
         }
     }
 
-    //Delete task
     fun deleteTask(taskId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteTask(taskId)

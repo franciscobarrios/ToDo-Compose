@@ -21,7 +21,7 @@ fun detailTask(
     goBack: () -> Unit
 ) {
 
-    viewModel.observeTaskDetail().observeAsState().value.let { task ->
+    viewModel.taskDetail().observeAsState().value.let { task ->
         Scaffold(
             bodyContent = {
                 task?.let { item -> detailTask(item) }

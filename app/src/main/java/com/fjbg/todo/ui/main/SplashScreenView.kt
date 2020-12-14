@@ -17,16 +17,20 @@ import kotlinx.coroutines.launch
 fun splashScreen(
     goHome: () -> Unit
 ) {
+    //TODO: implement splashscreen as in Crane app: https://github.com/android/compose-samples/blob/main/Crane/app/src/main/java/androidx/compose/samples/crane/home/LandingScreen.kt
+    
     Scaffold(
         backgroundColor = Color.White,
         bodyContent = {
             Column {
                 showIntroAnimation()
                 splashScreenText(ContextAmbient.current.resources.getString(R.string.app_name))
+
                 GlobalScope.launch(Dispatchers.Main) {
                     delay(2000)
                     goHome.invoke()
                 }
+
             }
         }
     )

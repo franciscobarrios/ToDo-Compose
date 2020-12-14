@@ -30,7 +30,7 @@ fun homeView(
     navigateToTask: (Int) -> Unit,
     title: String,
 ) {
-    viewModel.observeTaskList().observeAsState().value.let { list ->
+    viewModel.taskList().observeAsState().value.let { list ->
         defaultContentView(
             title = title,
             action = newTask,
