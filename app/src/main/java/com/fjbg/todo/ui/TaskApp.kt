@@ -30,7 +30,7 @@ fun TaskApp(
     ToDoTheme {
         NavHost(
             navController = navController,
-            startDestination = Home
+            startDestination = SplashScreen
         ) {
             composable(SplashScreen) {
                 splashScreen(

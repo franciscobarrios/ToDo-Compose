@@ -55,6 +55,8 @@ fun defaultContentView(
                 BottomAppBar(cutoutShape = CircleShape) {
                     IconButton(
                         onClick = {
+                            
+
                             Log.d(TAG, "onClick: ${drawerState?.value}")
                         }) {
                         Icon(Icons.Filled.MoreVert)

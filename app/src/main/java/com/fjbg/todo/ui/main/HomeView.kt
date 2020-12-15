@@ -39,7 +39,8 @@ fun homeView(
             showBottomBar = true,
             content = {
                 drawer(
-                    drawerState = drawerState, content = {
+                    drawerState = drawerState,
+                    content = {
                         contentMain(
                             list = list,
                             navigateToTask = navigateToTask
