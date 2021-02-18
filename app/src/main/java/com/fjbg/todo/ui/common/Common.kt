@@ -1,6 +1,5 @@
 package com.fjbg.todo.ui.common
 
-import android.util.Log
 import androidx.compose.animation.core.TransitionState
 import androidx.compose.animation.transition
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,7 +16,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.fjbg.todo.ui.TAG
 import com.fjbg.todo.ui.anim.FabState
 import com.fjbg.todo.ui.anim.colorState
 import com.fjbg.todo.ui.anim.fabSizeTransitionDefinition
@@ -25,6 +23,7 @@ import com.fjbg.todo.ui.anim.sizeState
 import com.fjbg.todo.ui.theme.almostWhite
 import com.fjbg.todo.ui.theme.primary
 import com.fjbg.todo.ui.theme.white
+
 
 @Composable
 fun defaultContentView(
@@ -55,9 +54,6 @@ fun defaultContentView(
                 BottomAppBar(cutoutShape = CircleShape) {
                     IconButton(
                         onClick = {
-
-
-                            Log.d(TAG, "onClick: ${drawerState?.value}")
                         }) {
                         Icon(Icons.Filled.MoreVert)
                     }
